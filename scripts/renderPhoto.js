@@ -1,23 +1,25 @@
 import { createElem } from "./createElem.js";
 
 export const renderPhoto = (photoWrapper, photo) => {
-    const photoPicture = new Image();
-    photoPicture.className = 'photo__picture';
-    photoPicture.src = photo.urls.regular;
-    photoPicture.alt = photo.alt_description;
-    photoPicture.style = 'max-height: 80vh;';
+    const photoPicture = createElem('img', {
+        className: 'photo__picture',
+        src: photo.urls.regular,
+        alt: photo.alt_description,
+        style: 'max-height: 80vh;'
+    });
 
     const author = createElem('a', {
         className: 'photo__author',
         href: photo.user.html
     });
 
-    const avatarAuthor = new Image();
-    avatarAuthor.src = photo.user.profile_image.medium;
-    avatarAuthor.width = '64';
-    avatarAuthor.height = '64';
-    avatarAuthor.alt = photo.user.bio;
-    avatarAuthor.title = photo.user.name;
+    const avatarAuthor = createElem('img', {
+        src: photo.user.profile_image.medium,
+        width: '64',
+        height: '64',
+        alt: photo.user.bio,
+        title: photo.user.name
+    });
 
     const authorName = createElem('span', {
         textContent: photo.user.name
@@ -29,20 +31,24 @@ export const renderPhoto = (photoWrapper, photo) => {
         className: 'photo__control',
     });
 
-    const likeBtn = createElem('button', {
+    const photoLike = createElem('button', {
         id: photo.id,
         className: 'photo__like',
         textContent: photo.likes
     });
 
+    if(!photoLike.likedByUser) {
+        photoLike.classList.add('photo__like_o');
+    }
+
     const photoDownload = createElem('a', {
         className: 'photo__download',
-        href: photo.links.download,
+        href: photo.urls.raw,
         download: true,
         target: '_blank'
     });
 
-    photoControl.append(likeBtn, photoDownload);
+    photoControl.append(photoLike, photoDownload);
 
     photoWrapper.append(photoPicture, author, photoControl);
 }

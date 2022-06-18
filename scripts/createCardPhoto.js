@@ -33,13 +33,14 @@ export const createCardPhoto = async (data) => {
         href: data.user.links.html
     });
 
-    const avatarAuthor = new Image();
-    avatarAuthor.className = 'author__photo';
-    avatarAuthor.src = data.user.profile_image.medium;
-    avatarAuthor.width = '32';
-    avatarAuthor.height = '32';
-    avatarAuthor.alt = data.user.bio;
-    avatarAuthor.title = data.user.username;
+    const avatarAuthor = createElem('img', {
+        className: 'author__photo',
+        src: data.user.profile_image.medium,
+        width: '32',
+        height: '32',
+        alt: data.user.bio,
+        title: data.user.username
+    });
 
     author.append(avatarAuthor);
 
