@@ -10,7 +10,7 @@ export const renderPhoto = (photoWrapper, photo) => {
 
     const author = createElem('a', {
         className: 'photo__author',
-        href: photo.user.html
+        href: photo.user.links.html
     });
 
     const avatarAuthor = createElem('img', {
@@ -18,11 +18,11 @@ export const renderPhoto = (photoWrapper, photo) => {
         width: '64',
         height: '64',
         alt: photo.user.bio,
-        title: photo.user.name
+        title: photo.user.username
     });
 
     const authorName = createElem('span', {
-        textContent: photo.user.name
+        textContent: photo.user.username
     });
 
     author.append(avatarAuthor, authorName);
@@ -34,7 +34,8 @@ export const renderPhoto = (photoWrapper, photo) => {
     const photoLike = createElem('button', {
         id: photo.id,
         className: 'photo__like',
-        textContent: photo.likes
+        textContent: photo.likes,
+        likedByUser: photo.liked_by_user
     });
 
     if(!photoLike.likedByUser) {
@@ -51,4 +52,6 @@ export const renderPhoto = (photoWrapper, photo) => {
     photoControl.append(photoLike, photoDownload);
 
     photoWrapper.append(photoPicture, author, photoControl);
+
+    return photoLike;
 }
