@@ -54,6 +54,8 @@ const logout = (e) => {
         localStorage.removeItem('Bearer');
         btn.textContent = '';
         btn.style.backgroundImage = '';
+        btn.removeEventListener('click', logout);
+        btn.addEventListener('click', login);
     }
 }
 
